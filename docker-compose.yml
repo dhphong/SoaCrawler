@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - "/Users/imu/Documents/Projects/SoaCrawler/rabbit:/var/lib/rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: crawler
+      RABBITMQ_DEFAULT_PASS: crawler@rabbit123

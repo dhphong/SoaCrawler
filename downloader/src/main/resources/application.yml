@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    stream:
+      rabbit:
+        bindings:
+          downloader-in:
+            consumer:
+              maxPriority: 10
+      bindings:
+        downloader-in:
+          destination: downloader
+          binder: rabbit
+          contentType: application/json
+          group: downloader
+        downloader-out:
+          destination: main
+          binder: rabbit
+          contentType: application/json
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: rabbit
+                port: 5672
+                username: crawler
+                password: crawler@rabbit123
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: crawler
+    password: crawler@rabbit123
