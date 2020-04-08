@@ -43,6 +43,12 @@ public class DownloaderServiceImpl implements DownloaderService {
         String url = urlInfo.getUrl();
 
         System.out.println("Download [" + url + "]");
+
+        if (url.startsWith("mailto://")) {
+            System.out.println("Email has been ignore");
+            return null;
+        }
+
         try {
             boolean isRedirect = false;
             HttpURLConnection connection;
@@ -69,7 +75,7 @@ public class DownloaderServiceImpl implements DownloaderService {
 
             String contentType = connection.getContentType();
             byte[] data = IOUtils.toByteArray(connection.getInputStream());
-           {
+            {
                 String title = "";
                 if (contentType.startsWith("text/html")) {
                     title = getTitle(data);
