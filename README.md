@@ -21,5 +21,7 @@ Try RabbitMQ GUI on: ``localhost:15672``
 
 ## Running aplication
 Start ``edu.soa.main.MainApplication``
+
 Start ``edu.soa.downloader.DownloaderApplication``
+
 Swagger UI API test on: ``http://localhost:9090/api/swagger-ui.html``
