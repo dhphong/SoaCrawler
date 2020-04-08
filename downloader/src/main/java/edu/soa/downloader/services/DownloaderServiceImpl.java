@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import edu.soa.common.utils.UrlCompare;
 
 @Service
 public class DownloaderServiceImpl implements DownloaderService {
@@ -66,9 +70,15 @@ public class DownloaderServiceImpl implements DownloaderService {
                 }
 
                 if (isRedirect) {
-
+                    String oldUrl = url;
                     url = connection.getHeaderField("Location");
-                    System.out.println("Redirect to URL : " + url);
+                    if(UrlCompare.compareDomain(url, oldUrl)){
+                        System.out.println("Redirect to URL : " + url);
+                    }
+                    else {
+                        System.out.println("Break other domain");
+                        return null;
+                    }
 
                 }
             } while (isRedirect);

@@ -1,6 +1,7 @@
 package edu.soa.main.services;
 
 import edu.soa.common.messages.DataMessage;
+import edu.soa.common.utils.UrlCompare;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,7 +43,9 @@ public class DataProcessServiceImpl implements DataProcessService {
             Document document = Jsoup.parse(new String(data));
             Elements linkElements = document.select("a[href]");
             List<String> links = linkElements.stream().map(e -> e.attr("abs:href"))
+                    .filter(link -> UrlCompare.compareDomain(message.getUrl().getUrl(), link))
                     .collect(Collectors.toList());
+
             ret.addAll(links);
         }
         return ret;
